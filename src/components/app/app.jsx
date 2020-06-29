@@ -1,12 +1,12 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
-import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
-import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
-import {GameType} from "../../const.js";
+import WelcomeScreen from "../welcome-screen/welcome-screen";
+import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen";
+import GenreQuestionScreen from "../genre-question-screen/genre-question-screen";
+import {GameType} from "../../const";
 
-class App extends PureComponent {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -92,7 +92,9 @@ class App extends PureComponent {
 
 App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
+  })).isRequired,
 };
 
 export default App;
